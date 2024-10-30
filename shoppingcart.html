@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - Tech Store</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .modal {
+            display: none;
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; 
+        }
+
+        .payment {
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment h2 {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .payment form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .payment input[type="text"] {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .payment input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .payment button[type="submit"] {
+            padding: 10px 15px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .payment button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .cart-total {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center; /* Align items vertically */
+        }
+
+        .cart-item img {
+            max-width: 100px;
+            margin-right: 15px; /* Increased margin for better spacing */
+        }
+
+        .cart-item div {
+            flex: 1; /* Allow the div to take available space */
+            display: flex;
+            flex-direction: column; /* Stack items vertically */
+            justify-content: space-between; /* Space between elements */
+        }
+
+        .cart-item h5 {
+            margin: 0; /* Remove default margin */
+            font-size: 1em; /* Adjust font size as needed */
+        }
+
+        .cart-item p {
+            margin: 5px 0; /* Adjust margins for paragraphs */
+        }
+
+        .remove-item {
+            width: auto;
+            max-width: 100px; 
+            padding: 5px 10px; 
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: bold;
+        }
+        
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">Tech Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="laptops.html">Laptops</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="smartphones.html">Smartphones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="accessories.html">Accessories</a>
+            </li>
+            <li class="nav-item active">
+                    <a class="nav-link" href="shoppingcart.html">Shopping Cart</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="aboutus.html">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="openLoginModal">Login</a>
+            </li>
+        </ul>
+
+            <!-- Right aligned button -->
+        <div class="ml-auto">
+            <button id="changeColorButton" class="btn btn-outline-primary">Light/Night Theme</button>
+        </div>   
+    </div>
+</nav>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter username" required>
+        <button id="loginButton">Login</button>
+        <button id="logoutButton" style="display: none;">Logout</button>
+        <p id="loginStatus">Logged out</p>
+    </div>
+</div>
+
+<main class="container mt-4">
+    <div class="cart">
+        <h2>Your Cart</h2>
+        <div id="cart-items">
+            <!-- Cart items will be dynamically populated here -->
+        </div>
+        <div class="cart-total">
+            Total: $<span id="cart-total">0.00</span>
+        </div>
+    </div>
+
+    <div class="payment">
+        <h2>Payment Information</h2>
+        <form action="#success-message" method="get">
+            <input type="text" id="card-name" placeholder="Cardholder Name" required>
+            <input type="text" id="card-number" placeholder="Card Number" required>
+            <input type="text" id="expiry-date" placeholder="Expiry Date (MM/YY)" required>
+            <input type="text" id="cvv" placeholder="CVV" required>
+            <button type="submit">Submit Payment</button>
+        </form>
+    </div>
+</main>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    // Function to render cart items from localStorage
+    function renderCartItems() {
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        const itemCounts = {}; // To store counts of identical items
+
+        cartItems.forEach(item => {
+            itemCounts[item.name] = (itemCounts[item.name] || 0) + 1;
+        });
+
+        cartItemsContainer.innerHTML = ''; // Clear previous items
+
+        if (Object.keys(itemCounts).length === 0) {
+            cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+            document.getElementById('cart-total').innerText = '0.00'; // Set total to $0.00 when empty
+            return;
+        }
+
+        let total = 0;
+
+        for (const [itemName, count] of Object.entries(itemCounts)) {
+            const item = cartItems.find(i => i.name === itemName); // Get the first item object
+
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('cart-item');
+            itemDiv.innerHTML = `
+                <img src="${item.image}" alt="Product Image">
+                <div>
+                    <h5>${item.name}</h5>
+                    <p>Price: $<span class="item-price">${item.price}</span></p>
+                    <p>Quantity: (${count})</p> <!-- Display count only -->
+                    <button class="btn btn-danger btn-sm remove-item" data-name="${item.name}">Remove</button>
+                </div>
+            `;
+            cartItemsContainer.appendChild(itemDiv);
+            total += parseFloat(item.price) * count; // Update total based on item price and count
+        }
+
+        document.getElementById('cart-total').innerText = total.toFixed(2);
+
+        // Add event listeners for remove buttons
+        const removeButtons = document.querySelectorAll('.remove-item');
+        removeButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const itemName = button.getAttribute('data-name');
+                removeItemFromCart(itemName);
+            });
+        });
+    }
+
+    // Function to remove one instance of an item from the cart
+    function removeItemFromCart(itemName) {
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        const itemIndex = cartItems.findIndex(item => item.name === itemName);
+        
+        if (itemIndex > -1) {
+            cartItems.splice(itemIndex, 1); // Remove only one instance of the item
+        }
+        
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+        renderCartItems();
+    }
+
+    // Function to add item to cart (example)
+    function addItemToCart(item) {
+        let cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+        cartItems.push(item); // Add new item directly
+        localStorage.setItem('cart', JSON.stringify(cartItems));
+    }
+
+    // Call the function to render cart items on page load
+    renderCartItems();
+</script>
+
+<script src="themeToggle.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>

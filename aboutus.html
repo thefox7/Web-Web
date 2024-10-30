@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Tech Store</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        .modal {
+            display: none;
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; 
+        }
+
+        .navbar-nav .nav-link {
+            font-weight: bold;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="index.html">Tech Store</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="laptops.html">Laptops</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="smartphones.html">Smartphones</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="accessories.html">Accessories</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="shoppingcart.html">Shopping Cart</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="aboutus.html">About Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="openLoginModal">Login</a>
+            </li>
+        </ul>
+
+            <!-- Right aligned button -->
+        <div class="ml-auto">
+            <button id="changeColorButton" class="btn btn-outline-primary">Light/Night Theme</button>
+        </div>
+    </div>
+</nav>
+
+<!-- Login Modal -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+        <h2>Login</h2>
+        <input type="text" id="username" placeholder="Enter username" required>
+        <button id="loginButton">Login</button>
+        <button id="logoutButton" style="display: none;">Logout</button>
+        <p id="loginStatus">Logged out</p>
+    </div>
+</div>
+
+<main class="container mt-4">
+    <section>
+        <h2 class="text-center">Meet Our Team</h2>
+        <p class="text-center">Dream Team</p>
+        <p class="text-center">
+            <a href="#max">Max</a> | 
+            <a href="#darkhan">Darkhan</a> | 
+            <a href="#kuka">Kuka</a>
+        </p>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwIqA60QdxONay1M2MjPCrJSmnZDp3Oo0R-g&s" alt="Max" class="card-img-top">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Maksat</h5>
+                        <p class="card-text">Main Coder. Biography: Pavel Durov is a Russian-born entrepreneur, best known as the founder of the social network VKontakte (VK) and the messaging platform Telegram.</p>
+                        <a class="bio-link" href="https://www.instagram.com/ikigami.m/" target="_blank">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://a.pinatafarm.com/500x375/5d68c0ce71/steve-jobs.jpg" alt="Darkhan" class="card-img-top">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Darkhan</h5>
+                        <p class="card-text">Director. Biography: Steve Jobs (1955–2011) was an American entrepreneur, inventor, and co-founder of Apple Inc.</p>
+                        <a class="bio-link" href="https://www.instagram.com/daaarkhaan/" target="_blank">View Profile</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <img src="https://play-lh.googleusercontent.com/lyprVbMRro2TX8W4DuUl2qXZyfZENUfBkZj3qnHN85bthA7tCzz5hvOu-6uaGcqrPQ" alt="Kuka" class="card-img-top">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">Kuanysh</h5>
+                        <p class="card-text">Main Designer. Biography: The Monkey, known for its agility and curiosity, has lived a life of playful exploration in the tropical forests.</p>
+                        <a class="bio-link" href="https://www.instagram.com/monkeee28/" target="_blank">View Profile</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="themeToggle.js"></script>
+<script src="login.js"></script>
+
+</body>
+</html>
